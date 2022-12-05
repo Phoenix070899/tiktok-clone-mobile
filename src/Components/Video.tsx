@@ -20,12 +20,11 @@ function Video({source, channel, time, description, hashtag} : IVideoProps) {
   return (
     <div className="w-full h-full bg-black relative">
       <video className="w-full h-full" src={source} controls></video>
-      <div className="absolute right-5 left-5 bottom-20 flex justify-between gap-5 items-end">
-        <div className="des-col flex flex-col gap-1 w-10/12">
+        <div className="absolute left-5 bottom-20 des-col flex flex-col gap-1 w-8/12">
             <span className="font-bold text-left">{channel} <span className="font-normal text-sm">- {time}</span></span>
             <span className="text-sm text-left">{description}<span className="font-semibold"> {hashtag}</span></span>
         </div>
-        <div className="icon-col flex flex-col items-center gap-5 w-1/12">
+        <div className="absolute right-5 bottom-20 icon-col flex flex-col items-center gap-5 w-1/12">
             <img src={mixi} alt="" className="w-[30px] h-[30px] rounded-full border border-white"/>
           <IconNode icon={<AiFillHeart size={24} color={like ? 'red' : undefined}/>} detail="100k" onClick={() => setLike(!like)}/>
           <IconNode icon={<AiFillMessage size={24} />} detail="100k" />
@@ -33,7 +32,6 @@ function Video({source, channel, time, description, hashtag} : IVideoProps) {
           <IconNode icon={<IoIosShareAlt size={24} />} detail="100k" />
         </div>
       </div>
-    </div>
   );
 }
 
