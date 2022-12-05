@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import mixi from "../Assets/Imgs/mixi.jpg";
 import vid from "../Assets/Vids/vid-1.mp4";
 import { AiFillHeart, AiFillMessage } from "react-icons/ai";
 import { MdOutlineBookmark } from "react-icons/md";
 import { IoIosShareAlt } from "react-icons/io";
 import IconNode from "./IconNode";
+import { useSwiperSlide } from 'swiper/react';
 
 interface IVideoProps {
     source: any;
@@ -12,14 +13,27 @@ interface IVideoProps {
     time?: string;
     description?: string;
     hashtag?: string;
+    active?: boolean;
 }
 
-function Video({source, channel, time, description, hashtag} : IVideoProps) {
+function Video({source, channel, time, description, hashtag, active} : IVideoProps) {
+    const slideActive = useSwiperSlide()
+
     const [like, setLike] = useState(false)
     const [mark, setMark] = useState(false)
+
+    useEffect(() => {
+        if (slideActive.isActive) {
+           vidRef.current?.play()
+        } else {
+            vidRef.current?.pause()
+        }
+    }, [slideActive.isActive])
+
+    const vidRef = useRef<HTMLVideoElement>(null)
   return (
     <div className="w-full h-full bg-black relative">
-      <video className="w-full h-full" src={source} controls></video>
+      <video ref={vidRef} className="w-full h-full" src={source} controls></video>
         <div className="absolute left-5 bottom-20 des-col flex flex-col gap-1 w-8/12">
             <span className="font-bold text-left">{channel} <span className="font-normal text-sm">- {time}</span></span>
             <span className="text-sm text-left">{description}<span className="font-semibold"> {hashtag}</span></span>

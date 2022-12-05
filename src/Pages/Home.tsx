@@ -10,6 +10,8 @@ import "swiper/css";
 import "../Styles/Home.css";
 
 function Home() {
+
+
   return (
     <div className="relative text-w w-full h-[675px]">
 
